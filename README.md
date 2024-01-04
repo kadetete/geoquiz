@@ -21,7 +21,7 @@ O Geoquizzler é uma plataforma online dedicada a desafiar seus conhecimentos ge
 
 
 ### Modelo relacional do Banco de dados
-![Modelo relacional do banco de dados](./src/assets/images/documentacao/db_relacional.png)
+![Modelo relacional do banco de dados](./front-quizgeo/src/assets/images/documentacao/db_relacional.png)
 
 ### Diagrama de caso de uso
-![Caso de uso](./src/assets/images/documentacao/casodeuso.jpg)
+![Caso de uso](./front-quizgeo/src/assets/images/documentacao/casodeuso.jpg)
