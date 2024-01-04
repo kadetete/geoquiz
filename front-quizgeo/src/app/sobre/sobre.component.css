@@ -1,0 +1,33 @@
+.creator-card {
+    display: flex;
+    margin-bottom: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .creator-image {
+    width: 100px;
+    height: 100px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-right: 20px;
+  }
+  
+  .creator-image img {
+    width: 100%;
+    height: auto;
+  }
+  
+  .creator-details {
+    flex-grow: 1;
+  }
+  
+  h2 {
+    margin-bottom: 5px;
+  }
+  
+  p {
+    margin: 0;
+  }
+  

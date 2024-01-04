@@ -1,0 +1,69 @@
+version: '3.7'
+
+services:
+
+  db:
+    image: mysql:8.0.33
+    container_name: db
+    environment:
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+      - MYSQL_DATABASE=geographyquiz
+    restart: unless-stopped
+    volumes:
+      - mysql-data:/var/lib/mysql
+    networks:
+      - my-networks
+
+  backend:
+    build:
+      context: ./GeographyQuiz
+      dockerfile: Dockerfile
+    ports:
+      - 8080:8080
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_USER=root
+      - MYSQL_PASSWORD=''
+      - MYSQL_DB=geographyquiz
+    depends_on:
+      - db
+    networks:
+      - my-networks
+    restart: unless-stopped
+    command: bash -c "java -jar app.jar"
+
+  frontend:
+    build:
+      context: ./front-quizgeo
+      dockerfile: Dockerfile
+    ports:
+      - 80:80
+    depends_on:
+      - db
+      - backend
+    networks:
+      - my-networks
+    restart: unless-stopped
+    command: sh -c "ng serve --host 0.0.0.0"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: pma
+    links:
+      - db
+    environment:
+      - PMA_HOST=db
+      - PMA_PORT=3306
+      - PMA_ARBITRARY=1
+    restart: unless-stopped
+    ports:
+      - 8081:80
+    depends_on:
+      - db
+    networks:
+      - my-networks
+  
+networks:
+  my-networks:
+volumes:
+  mysql-data:

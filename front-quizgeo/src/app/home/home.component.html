@@ -1,0 +1,102 @@
+<app-menu></app-menu>
+<div *ngIf="carregando">
+    <div class="carregando">
+        <h2>Carregando dados...</h2>
+        <p-progressSpinner class="carregando" [style]="{width: '100px', height: '100px'}" strokeWidth="8" fill="#EEEEEE"
+            animationDuration=".5s"></p-progressSpinner>
+    </div>
+</div>
+<div *ngIf="!carregando">
+    <div>
+        <p-tabView>
+            <p-tabPanel header="Quizzes" leftIcon="pi pi-fw pi-home" class="panel">
+                <h2 class="titulo">Quizzes em destaque</h2>
+                <br>
+                <br>
+                <p-carousel class="carrosel" [value]="quizzesDestaque">
+                    <ng-template let-quiz pTemplate="item">
+                        <div class="quiz-item">
+                            <br>
+                            <br>
+                            <div class="quiz-title">{{ quiz.nome }}</div>
+                            <br>
+                            <div class="quiz-descricao">{{ quiz.descricao }}</div>
+                            <br>
+                            <p-button class="quiz-botao" label="Jogar" icon="pi pi-play"
+                                (click)="jogar(quiz.id)"></p-button>
+                        </div>
+                    </ng-template>
+                </p-carousel>
+                <br>
+                <br>
+                <h2 class="titulo">Todos os quizzes</h2>
+                <br>
+                <br>
+                <div class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (keyup)="filtrarQuizzes()" placeholder="Pesquisar quiz..." [(ngModel)]="quizPesquisado"/>
+                </div>
+                <p-table [paginator]="true" [value]="quizzes" dataKey="id" [rows]="10"
+                    [rowsPerPageOptions]="[10, 50, 100]" [autoLayout]="true" styleClass="p-datatable-striped" selectionMode="single"
+                    [(selection)]="quizSelecionado">
+                    <ng-template pTemplate="header">
+                        <tr>
+                            <th pSortableColumn="nome">Nome <p-sortIcon field="nome"></p-sortIcon></th>
+                            <th pSortableColumn="descricao">Descrição <p-sortIcon field="descricao"></p-sortIcon></th>
+                            <th></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template pTemplate="body" let-quiz>
+                        <tr pSelectableRow="quizzes">
+                            <td>{{ quiz.nome }}</td>
+                            <td>{{ quiz.descricao }}</td>
+                            <td><p-button class="quiz-botao" label="Jogar" icon="pi pi-play"
+                                    (click)="jogar(quiz.id)"></p-button></td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+            <p-tabPanel header="Perfil" leftIcon="pi pi-fw pi-user" class="panel">
+                <table>
+                    <tr>
+                        <td><img class="avatar" src="..\assets\images\perfil\blank-profile-picture-973460_1280.png"
+                                alt="Imagem do perfil do usuário"></td>
+                        <td>
+                            Email: {{ email }} <br>
+                            Usuario: {{ usuario}} <br> <br>
+                            <label for="switch">Tema Escuro</label> &nbsp;
+                            <p-inputSwitch id="switch" [(ngModel)]="ativo" (onChange)="mudarTema()"></p-inputSwitch>
+                        </td>
+                    </tr>
+                </table>
+                <br>
+                <br>
+                <hr>
+                <h2 style="text-align: center;">Histórico de pontuação</h2>
+                <div class="p-input-icon-left">
+                    <i class="pi pi-search"></i>
+                    <input pInputText type="text" (keyup)="filtrarPontuacoes()" placeholder="Pesquisar quiz..." [(ngModel)]="pontuacaoPesquisada"/>
+                </div>
+                <p-table [value]="pontuacoes" [autoLayout]="true" [paginator]="true" [rows]="10"
+                    [rowsPerPageOptions]="[10, 50, 100]" selectionMode="single" dataKey="id" [sortField]="'id'" [sortOrder]="-1">
+                    <ng-template pTemplate="header" styleClass="p-datatable-striped">
+                        <tr>
+                            <th pSortableColumn="quiz.nome">Nome <p-sortIcon field="quiz.nome"></p-sortIcon></th>
+                            <th pSortableColumn="pontuacao">Pontuação <p-sortIcon field="pontuacao"></p-sortIcon></th>
+                        </tr>
+                    </ng-template>
+                    <ng-template let-pontuacao pTemplate="body">
+                        <tr>
+                            <td>{{ pontuacao.quiz.nome }}</td>
+                            <td>{{pontuacao.pontuacao }}</td>
+                        </tr>
+                    </ng-template>
+                </p-table>
+            </p-tabPanel>
+        </p-tabView>
+    </div>
+</div>
+<hr>
+<br>
+<p-button class="link-button" (click)="creditos()" label="Créditos e agradecimentos" icon="pi pi-heart-fill"
+    [text]="true"></p-button>

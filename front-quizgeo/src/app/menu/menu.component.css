@@ -1,0 +1,19 @@
+.logo {
+    display: flex;
+    /* Usa o modelo de layout flexível */
+    align-items: center;
+    /* Alinha os itens verticalmente ao centro */
+}
+
+h1 {
+    margin-right: 10px;
+    /* Adiciona um espaço à direita do título */
+}
+
+.login {
+    margin-left: auto;
+}
+
+a {
+    color: grey;
+}

@@ -1,0 +1,20 @@
+<div class="login-container surface-card p-4 shadow-2 border-round w-full lg:w-6">
+    <div class="text-center mb-5">
+        <img src="assets/images/logos/globo.png" alt="Image" height="50" class="mb-3">
+        <div class="text-900 text-3xl font-medium mb-3">Se registre aqui!</div>
+        <div *ngIf="invalido" class="text-red-300 font-medium mb-3">Dados inválidos, preencha todos os campos e tente novamente!</div>
+    </div>
+
+    <div>
+        <label for="usuario1" class="block text-900 font-medium mb-2">Nome de usuário</label>
+        <input type="usuario1" type="text" placeholder="Usuario" pInputText class="w-full mb-3" [(ngModel)]="nome">
+
+        <label for="email1" class="block text-900 font-medium mb-2">Email</label>
+        <input id="email1" type="email" placeholder="Email" pInputText class="w-full mb-3" [(ngModel)]="email">
+
+        <label for="password1" class="block text-900 font-medium mb-2">Senha</label>
+        <input id="password1" type="password" placeholder="Senha" pInputText class="w-full mb-3" [(ngModel)]="senha">
+
+        <button pButton pRipple label="Registrar" class="w-full" (click)="registrar()"></button>
+    </div>
+</div>
